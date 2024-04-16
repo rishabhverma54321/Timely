@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+.tl-main {
+   /* background-color: red; */
+   position: fixed;
+   z-index: 14;
+   font-family: "Inter", sans-serif;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: fit-content;
+   height: 90px;
+   padding: 0.8rem 0.5rem;
+   background:#fff;
+   border-radius: 8px;
+   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  .tl-child:hover {
+    background-color: rgba(255, 0, 0, 0.3);
+  }
+
+  .tl-child {
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    /* color: rgb(255, 0, 0); */
+    color: rgb(255, 0, 0);
+    font-size: 14px;
+    font-weight: 800;
+
+    span {
+      color: #000;
+    }
+  }

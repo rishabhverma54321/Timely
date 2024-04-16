@@ -1,0 +1,30 @@
+{
+    "name": "Timmely",
+    "version": "1.0",
+    "description": "Timmely with Parcel + Preact + TailwindCSS",
+    "manifest_version": 3,
+    "action": {
+      "default_icon": "static/time-zone.png",
+      "default_popup":"./src/main.html"
+    },
+    "icons": {
+      "48": "static/time-zone.png"
+    },
+    "permissions": [
+      "tabs",
+      "contextMenus",
+      "scripting",
+      "activeTab"
+    ],
+    "background": {
+      "service_worker": "./src/background.ts"
+    },
+    "content_scripts": [
+      {
+        "js": ["./src/content.ts"],
+        "css":["./src/styles/content.css"],
+        "matches": ["https://*/*"],
+        "run_at": "document_end"
+      }
+    ]
+  }
