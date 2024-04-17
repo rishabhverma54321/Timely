@@ -5,6 +5,8 @@ export const modalConfig = {
     height: 90
 }
 
+export const storageKey = "tl-zone-data"
+
 export const timeZones = [
     'Europe/Andorra',
     'Asia/Dubai',

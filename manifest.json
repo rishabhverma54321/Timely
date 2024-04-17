@@ -14,7 +14,8 @@
       "tabs",
       "contextMenus",
       "scripting",
-      "activeTab"
+      "activeTab",
+      "storage"
     ],
     "background": {
       "service_worker": "./src/background.ts"
