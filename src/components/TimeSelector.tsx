@@ -1,27 +1,34 @@
 import { useState, useEffect, useRef } from "preact/hooks";
 import { timeZones } from "@utils/constants";
-import "@styles/popup.css"
+import "@styles/popup.css";
 
 const TimeSelector = ({ value, handleValue, index }) => {
-    const [searchTerm, setSearchTerm] = useState(value?.zone);
-    const [show, setShow] = useState(false);
-    const selectBox = useRef(null);
-    console.log("searchTerm",searchTerm)
+  const [searchTerm, setSearchTerm] = useState(value?.zone);
+  const [show, setShow] = useState(false);
+  const selectBox = useRef(null);
 
-    useEffect(() => {
-        function handleClickOutside(event) {
-          if (selectBox.current && !selectBox.current.contains(event.target)) {
-            setShow(false);
-          }
-        }
-    
-        // Bind the event listener
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-          // Unbind the event listener on clean up
-          document.removeEventListener("mousedown", handleClickOutside);
-        };
-      }, [selectBox]);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (selectBox.current && !selectBox.current.contains(event.target)) {
+        setShow(false);
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [selectBox]);
+
+  const handleInputOnBlur = (e:any) => {
+    const value = e.target.value;
+    const findZone = timeZones.find((item: string)=> item === value);
+    if (!findZone) {
+      setSearchTerm("");
+    }
+  }
 
   return (
     <div className="popup_box grid">
@@ -29,7 +36,7 @@ const TimeSelector = ({ value, handleValue, index }) => {
         <input
           type="text"
           value={value.prefix}
-          onChange={(e) => {
+          onChange={(e:any) => {
             handleValue(index, {
               zone: searchTerm,
               prefix: e.target.value,
@@ -50,13 +57,18 @@ const TimeSelector = ({ value, handleValue, index }) => {
           onFocus={() => {
             setShow(true);
           }}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onBlur={(e:any)=>{
+            // handleInputOnBlur(e)
+          }}
+          onInput={(e: any) => {
+            setSearchTerm(e.target.value);
+          }}
         />
         <ul>
           {show &&
             timeZones
               .filter((zone) =>
-                zone.toLowerCase().includes(searchTerm.toLowerCase()),
+                zone.toLowerCase().includes(searchTerm.toLowerCase())
               )
               ?.map((item) => (
                 <li
@@ -79,23 +91,13 @@ const TimeSelector = ({ value, handleValue, index }) => {
         ) : (
           <></>
         )}
-        {/* <select
-          value={selectedOption}
-          onChange={(e) => setSelectedOption(e.target.value)}
-        >
-          {filteredOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select> */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-TimeSelector.Error = function({ error }){
-    return <div className="error">{error}</div>;
-  };
+TimeSelector.Error = function ({ error }) {
+  return <div className="error">{error}</div>;
+};
 
-export default TimeSelector
+export default TimeSelector;

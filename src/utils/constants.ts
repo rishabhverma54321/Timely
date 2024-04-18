@@ -5,6 +5,7 @@ export const modalConfig = {
     height: 90
 }
 
+export const TextRegex = /^[a-zA-Z]{2,5}$/
 export const storageKey = "tl-zone-data"
 
 export const timeZones = [
