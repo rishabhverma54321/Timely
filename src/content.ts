@@ -1,14 +1,20 @@
-import { modalConfig, TimeRegex, TimeRemoveRegex } from "@utils/constants";
+import { ParseItemState, ParseStateArray, storageItemState, storageItemStateArray } from "@types/popup";
+import { modalConfig, storageKey, TimeRegex, TimeRemoveRegex } from "@utils/constants";
 import { convertTimeToTargetZone, findContentTag ,isValidTag, getPositionOfWord} from "@utils/helpers";
 
 const bodyTag: any = document.getElementsByTagName("body") || null;
 const bodyTagName: any = bodyTag && bodyTag[0];
-bodyTagName && bodyTagName.addEventListener("mouseup", onMouseUp, false);
-var isModalOpen = false;
+chrome.storage.sync.get([storageKey]).then((result: any) => {
+  bodyTagName && bodyTagName.addEventListener("mouseup", ()=>{
+    onMouseUp(result[storageKey])
+  }, false);
+})
+let isModalOpen = false;
 
-function onMouseUp() {
+function onMouseUp(timeZones:storageItemStateArray) {
   const activeTextarea: any = document.activeElement;
-
+  
+  console.log("timely-result",timeZones)
   const selectedTag = activeTextarea.tagName;
 
   if (isValidTag(activeTextarea)) {
@@ -16,11 +22,17 @@ function onMouseUp() {
      
     activeTextarea.addEventListener("input", (input: any) => {
       const value: string = selectedTag == "INPUT" && selectedTag == "TEXTAREA"  ?  input.target.value : input.target.textContent;
-      const targetValue: string = value.split("$")[1];
+      const splitTarget: Array<string> = value.split("$");
+      const targetValue: string = splitTarget[splitTarget.length - 1];
       if (TimeRegex.test(targetValue)) {
-        const time: string = targetValue.substring(2, 7);
-        const convertedTime = convertTimeToTargetZone(time, "Europe/London");
-        addingHtmlToDivTag(activeTextarea, convertedTime, time, targetValue);
+        const totalLength:number = targetValue.length
+        const time: string = targetValue.substring(totalLength-5, totalLength);
+        const prefix: string = targetValue.substring(0, totalLength-5);
+        const timeState:storageItemState | undefined = timeZones.find((item:storageItemState)=> item?.prefix === prefix)
+        if(timeState?.zone){
+          const convertedTime = convertTimeToTargetZone(time, timeState?.zone);
+          addingHtmlToDivTag(activeTextarea, convertedTime, time, targetValue);
+        }
       } else if (isModalOpen) {
         removeHtmlDivTag(activeTextarea);
       }

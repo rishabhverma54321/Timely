@@ -1,3 +1,6 @@
+import { StateItem } from "@types/popup";
+import { storageKey } from "./constants";
+
 export const convertTimeToTargetZone = (
   timeString: string,
   targetTimeZone: string
@@ -7,9 +10,10 @@ export const convertTimeToTargetZone = (
     .map((part) => parseInt(part, 10));
 
   const timeValues: string[] = [];
+  //04:15
   timeValues.push(timeAmPm(hours, minutes, targetTimeZone));
   if (hours < 12) {
-    timeValues.push(timeAmPm(24 - hours, minutes, targetTimeZone));
+    timeValues.push(timeAmPm(12 + hours, minutes, targetTimeZone));
   }
 
   return timeValues;
@@ -113,7 +117,7 @@ export function getPositionOfWord(
     dummyDiv.textContent = tag.textContent.slice(0, index);
   }
   dummyDiv.appendChild(span);
-  const spanPosition:any = span.getBoundingClientRect();
+  const spanPosition: any = span.getBoundingClientRect();
   // dummyDiv.textContent = word;
   // const after = dummyDiv.getBoundingClientRect();
   // console.log("beforeafter", before, span);
@@ -160,3 +164,9 @@ export function getPositionOfWord(
 
 //   return position;
 // }
+
+export const getStorage = (): StateItem => {
+  return chrome.storage.session.get([storageKey]).then((result: any) => {
+    return result[storageKey];
+  });
+};

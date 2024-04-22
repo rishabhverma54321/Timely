@@ -1,16 +1,6 @@
-// chrome.contextMenus.create({
-//     id: "main_page",
-//     title: "Open Main Page", 
-//     onclick: () => {
-//       chrome.tabs.create({  
-//         url: chrome.runtime.getURL("src/popup.html")
-//       });
-//     },
-//     contexts: ["browser_action"]
-//   }, () => {});
-
-  // chrome.contextMenus.onClicked.addListener((info, tab) => {
-  //     tab.create({  
-  //       url: chrome.runtime.getURL("src/popup.html")
-  //     });
-  // })
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.method == "getLocalStorage")
+    sendResponse({data: localStorage[request.key]});
+  else
+    sendResponse({}); // snub them.
+});

@@ -1,4 +1,4 @@
-export const TimeRegex = /[a-zA-Z]{2}\d{2}:\d{2}(?=$)/;
+export const TimeRegex = /^[a-zA-Z]{2,5}\d{2}:\d{2}(?=$)/;
 export const TimeRemoveRegex = /[a-zA-Z]{2}\d{2}:\d{2}(?= $)/;
 
 export const modalConfig = {
@@ -7,6 +7,8 @@ export const modalConfig = {
 
 export const TextRegex = /^[a-zA-Z]{2,5}$/
 export const storageKey = "tl-zone-data"
+
+export const MaxSize = 3;
 
 export const timeZones = [
     'Europe/Andorra',

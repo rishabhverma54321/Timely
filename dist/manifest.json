@@ -5,7 +5,7 @@
   "manifest_version": 3,
   "action": {
     "default_icon": "/time-zone.374560b9.png",
-    "default_popup": "/main.5e097028.html"
+    "default_popup": "/main.12d615d2.html"
   },
   "icons": {
     "48": "/time-zone.374560b9.png"
@@ -18,12 +18,12 @@
     "storage"
   ],
   "background": {
-    "service_worker": "/background.ad265b8b.js"
+    "service_worker": "/background.91684b89.js"
   },
   "content_scripts": [
     {
       "js": [
-        "/content.c9f5af03.js"
+        "/content.b5706a38.js"
       ],
       "css": [
         "/content.6c667167.css"
