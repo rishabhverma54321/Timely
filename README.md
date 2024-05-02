@@ -56,6 +56,8 @@ After successfully installing the project, follow these steps to use Timely as a
 5. **Using Timely**:
    - After setting up Timely, you can use the following format to communicate times: `$prefixHH:MM`, where `$prefix` is the prefix you specified and `HH:MM` is the time in 24-hour format.
 
+ ![alt text](clideo_editor_5249d444fb2b4c98ad802c83d4e6f3fd.gif)
+
 ## Contributing
 Contributions to Timely are welcome! If you have any suggestions, improvements, or bug fixes, please feel free to open an issue or submit a pull request. Make sure to follow the project's code of conduct.
 
